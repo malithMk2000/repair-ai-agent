@@ -40,5 +40,15 @@ namespace RepairCenterPortal.Services.Repositories
             ticket.CreatedAt = DateTime.UtcNow;
             return await _repository.AddAsync(ticket);
         }
+
+        public async Task UpdateTicketAsync(RepairTicket ticket)
+        {
+            await _repository.UpdateAsync(ticket);
+        }
+
+        public async Task DeleteTicketAsync(int id)
+        {
+            await _repository.DeleteAsync(id);
+        }
     }
 }

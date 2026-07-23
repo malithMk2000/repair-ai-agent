@@ -36,5 +36,49 @@ namespace RepairCenterPortal.Controllers
 
             return CreatedAtAction(nameof(GetAllTickets), new { id = createdTicket.Id }, createdTicket);
         }
+
+        // PUT: api/tickets/{id}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateTicket(int id, [FromBody] RepairTicket updatedTicket)
+        {
+            if (id != updatedTicket.Id)
+            {
+                return BadRequest("ID mismatch");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            await _repairService.UpdateTicketAsync(updatedTicket);
+            return NoContent();
+        }
+
+        // DELETE: api/tickets/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTicket(int id)
+        {
+            await _repairService.DeleteTicketAsync(id);
+            return NoContent();
+        }
+
+        [HttpGet("number/{ticketNumber}")]
+        public async Task<IActionResult> GetByTicketNumber(string ticketNumber)
+        {
+            if (string.IsNullOrWhiteSpace(ticketNumber))
+            {
+                return BadRequest("Ticket number cannot be empty.");
+            }
+
+            var ticket = await _repairService.GetRepairStatusForAiAsync(ticketNumber);
+
+            if (ticket == null)
+            {
+                return NotFound($"Repair ticket {ticketNumber} was not found.");
+            }
+
+            return Ok(ticket);
+        }
     }
 }

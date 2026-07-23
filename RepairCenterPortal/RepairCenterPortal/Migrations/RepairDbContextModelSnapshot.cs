@@ -88,6 +88,9 @@ namespace RepairCenterPortal.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<decimal?>("ActualCost")
+                        .HasColumnType("numeric");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -103,8 +106,17 @@ namespace RepairCenterPortal.Migrations
                     b.Property<decimal?>("EstimatedCost")
                         .HasColumnType("numeric");
 
+                    b.Property<DateTime?>("EstimatedDeliveryDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<decimal?>("FinalCost")
                         .HasColumnType("numeric");
+
+                    b.Property<string>("IssuesFound")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SpecialNotes")
+                        .HasColumnType("text");
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");

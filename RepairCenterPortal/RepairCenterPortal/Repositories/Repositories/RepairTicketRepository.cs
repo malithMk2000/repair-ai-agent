@@ -40,6 +40,16 @@ namespace RepairCenterPortal.Repositories.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            var ticket = await _context.RepairTickets.FindAsync(id);
+            if (ticket != null)
+            {
+                _context.RepairTickets.Remove(ticket);
+                await _context.SaveChangesAsync();
+            }
+        }
+
         public async Task<IEnumerable<RepairTicket>> GetAllAsync()
         {
             return await _context.RepairTickets

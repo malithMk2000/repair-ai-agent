@@ -7,5 +7,8 @@ namespace RepairCenterPortal.Services.Interfaces
         Task<RepairTicket?> GetRepairStatusForAiAsync(string ticketNumber);
         Task<IEnumerable<RepairTicket>> GetAllTicketsAsync();
         Task<RepairTicket> CreateNewTicketAsync(RepairTicket ticket);
+        Task UpdateTicketAsync(RepairTicket ticket);
+        Task DeleteTicketAsync(int id);
+        //Task<RepairTicket?> GetTicketByNumberAsync(string ticketNumber);
     }
 }
